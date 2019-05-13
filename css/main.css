@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body,html{
+    height: 100%;
+    margin:0;
+
+}
+
+p,h1,h2,h3,h4,h5,h6{
+    font-family: 'Roboto', sans-serif!important;
+}
+
+.navbar{
+    background-color: #f1f1f1!important;
+    border-bottom: #111;
+} 
+.nav-item{
+    margin-left: 4rem;
+}
+
+.navbar .nav-item a{
+    color: black!important;
+    font-size: 1em;
+    font-family: 'Noto Sans JP', sans-serif;
+    }
+
+.images{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.images img{
+    height: 500px;
+    width: 400px;
+    margin: 10px;
+}
+
+footer{
+    background-color: black;
+}
+
+
+.firstP{
+    background-image: url('../images/roll2.jpg');
+    min-height: 400px;
+}
+
+.secondP{
+    background-image: url('../images/rammen.jpg');
+    min-height: 400px;
+}
+
+.thirthP{
+    background-image: url('../images/papas.jpg');
+    min-height: 400px;
+}
+
+.firstP, .secondP, .thirthP{
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.70;
+    position: relative;
+    background-attachment: fixed;
+}
+
+.section{
+    text-align: center;
+    padding: 50px 80px;
+}
+
+.ptext{
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    letter-spacing: 8px;
+    font-size: 27px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #000;
+    font-weight: 30px;
+}
+
+.ptext .border{
+    background-color: #111;
+    color:#fff;
+    padding:20px;
+    border-color: 0.70px;
+}
