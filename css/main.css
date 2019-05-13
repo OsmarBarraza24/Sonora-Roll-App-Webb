@@ -4,7 +4,6 @@
 body,html{
     height: 100%;
     margin:0;
-
 }
 
 p,h1,h2,h3,h4,h5,h6{
@@ -41,6 +40,9 @@ footer{
     background-color: black;
 }
 
+.center{
+    text-align:center;
+}
 
 .firstP{
     background-image: url('../images/roll2.jpg');
@@ -89,3 +91,4 @@ footer{
     padding:20px;
     border-color: 0.70px;
 }
+
