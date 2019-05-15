@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP');
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Marmelad');
 
 body,html{
     height: 100%;
@@ -7,11 +7,11 @@ body,html{
 }
 
 p,h1,h2,h3,h4,h5,h6{
-    font-family: 'Roboto', sans-serif!important;
+    font-family: 'Marmelad', sans-serif!important;
 }
 
 .navbar{
-    background-color: #f1f1f1!important;
+    background-color: #fff!important;
     border-bottom: #111;
 } 
 .nav-item{
@@ -22,7 +22,13 @@ p,h1,h2,h3,h4,h5,h6{
     color: black!important;
     font-size: 1em;
     font-family: 'Noto Sans JP', sans-serif;
+    transition: 500ms;
     }
+
+    .navbar .nav-item a:hover{
+    color:red;    
+    }   
+
 
 .images{
     display: flex;
@@ -37,6 +43,7 @@ p,h1,h2,h3,h4,h5,h6{
 }
 
 footer{
+    padding: 10px;
     background-color: black;
 }
 
@@ -92,3 +99,18 @@ footer{
     border-color: 0.70px;
 }
 
+.circle{
+    border-radius: 360px;
+    border: 1px solid black;
+}
+
+.card{
+height: 350px;
+width: 300px;
+padding: 10px;
+margin: 10px;
+}
+
+.btn{
+    font-family: 'Marmelad', sans-serif!important;
+}
