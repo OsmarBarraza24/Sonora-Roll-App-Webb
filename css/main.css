@@ -11,7 +11,7 @@ p,h1,h2,h3,h4,h5,h6{
 }
 
 .navbar{
-    background-color: #fff!important;
+    background-color: #111!important;
     border-bottom: #111;
 } 
 .nav-item{
@@ -19,9 +19,9 @@ p,h1,h2,h3,h4,h5,h6{
 }
 
 .navbar .nav-item a{
-    color: black!important;
+    color: white!important;
     font-size: 1em;
-    font-family: 'Noto Sans JP', sans-serif;
+    font-family: 'Marmelad', sans-serif;
     transition: 500ms;
     }
 
@@ -101,7 +101,7 @@ footer{
 
 .circle{
     border-radius: 360px;
-    border: 1px solid black;
+    border: 1px solid white;
 }
 
 .card{
