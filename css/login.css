@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css?family=Marmelad');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Marmelad', sans-serif;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.login {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    padding: 40px;
+    background: rgba(0,0,0,.8);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.5);
+    border-radius: 10px;
+}
+
+.login h2 {
+    margin: 0 0 30px;
+    padding: 0;
+    color: #fff;
+    color: white;
+    text-align: center;
+}
+
+.login .inputBox {
+    position: relative;
+}
+
+.login .inputBox input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+}
+
+.login .inputBox label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s; 
+}
+
+.login .inputBox input:focus ~ label,
+.login .inputBox input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: red;
+    font-size: 12px;
+}
+
+.login input[type="submit"] {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    background: red;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
