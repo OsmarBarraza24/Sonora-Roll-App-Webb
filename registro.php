@@ -1,7 +1,23 @@
+<?php 
+session_start();
+session_id("1");
+
+if(isset($_POST["sent"])){
+$path = "http://192.168.0.16/sonroll/usuarioWS.php/".$_POST['nombre']."/".$_POST['paterno']."/".$_POST['materno']."/".$_POST['telefono']."/".$_POST['contrasena']."/".$_POST['email']."";
+
+$data = file_get_contents($path);
+$json = json_decode($data,true);
+
+}
+
+$url = "http://192.168.0.16/sonroll/usuarioWS.php/"
+
+?>
+
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Inicia sesión</title>
+        <title>Registro</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
       integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -38,7 +54,9 @@
                    <a href=""><i class="fas fa-shopping-cart"></i></a> 
                   </li>
                 </ul>
-                <li class="nav-item form-inline dropdown">
+                <?php if() ?>
+                 <li class="nav-item form-inline dropdown">
+                  <img height="40" width="40" src="images/papas.jpg" alt="" class="circle">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"" href="#">Osmar Barraza Flores</a> 
                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                           <a class="dropdown-item" href="#">Mi perfil</a>
@@ -48,30 +66,42 @@
                         </div>
                   
                 </li>
-                <!-- <form class="form-inline my-2 my-lg-0">
+                <form class="form-inline my-2 my-lg-0">
                   <button type="button" class="btn btn-light">Iniciar sesión</button>
-                </form> -->
+                </form>
               </div>
             </nav>
-
+<br>
         <div class="login">
-            <h2>Inicia sesión</h2>
-            <form method="post">
+            <h2>Registrate</h2>
+            <form method="POST">
                 <div class="inputBox">
-                    <input type="text" name="" required="">
-                    <label>Usuario</label>
+                    <input type="text" name="nombre" required="">
+                    <label>Nombre</label>
                 </div>
                 <div class="inputBox">
-                    <input type="password" name="" required="">
+                    <input type="text" name="paterno" required="">
+                    <label>Apellido Paterno</label>
+                </div>
+                <div class="inputBox">
+                    <input type="text" name="materno" required="">
+                    <label>Apellido Materno</label>
+                </div>
+                <div class="inputBox">
+                    <input type="text" name="telefono" required="">
+                    <label>Telefono</label>
+                </div>
+                <div class="inputBox">
+                    <input type="text" name="email" required="">
+                    <label>Correo</label>
+                </div>
+                <div class="inputBox">
+                    <input type="password" name="contrasena" required="">
                     <label>Contraseña</label>
                 </div>
-                <input type="submit" name="" value="Entrar">
+                <input type="submit" name="sent" value="Registrarse">
             </form>
-            <a href="registro.php">¿No tienes cuenta? Registrate aquí</a>
         </div>
-
-    
-        
 
             <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
