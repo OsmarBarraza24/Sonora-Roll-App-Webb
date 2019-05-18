@@ -1,17 +1,32 @@
 <?php 
 session_start();
-session_id("1");
 
 if(isset($_POST["sent"])){
 $path = "http://192.168.0.16/sonroll/usuarioWS.php/".$_POST['nombre']."/".$_POST['paterno']."/".$_POST['materno']."/".$_POST['telefono']."/".$_POST['contrasena']."/".$_POST['email']."";
-
 $data = file_get_contents($path);
-$json = json_decode($data,true);
+$json = json_decode($data, true);
 
+//login
+
+$findUser = "http://192.168.0.16/sonroll/usuarioWS.php/login/".$_POST['contrasena']."/".$_POST['email']."";
+$findUserData= file_get_contents($findUser);
+$jsonUser = json_decode($findUserData,true);
+
+foreach($jsonUser as $user){
+  $_SESSION['id'] = $user['id'];
 }
 
-$url = "http://192.168.0.16/sonroll/usuarioWS.php/"
+echo $_SESSION['id'];
+}
 
+//byId
+$findUserById = "http://192.168.0.16/sonroll/usuarioWS.php/search/".$user['id'];
+$findUserDataById = file_get_contents($findUserById);
+$jsonUserById = json_decode($findUserDataById,true);
+
+foreach($jsonUserById as $chuy){
+    echo $chuy['nombre']." ".$chuy['apellidopaterno']." ".$chuy['apellidomaterno'];
+} 
 ?>
 
 <html>
@@ -35,7 +50,6 @@ $url = "http://192.168.0.16/sonroll/usuarioWS.php/"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
-        
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                   <li class="nav-item active">
@@ -54,21 +68,26 @@ $url = "http://192.168.0.16/sonroll/usuarioWS.php/"
                    <a href=""><i class="fas fa-shopping-cart"></i></a> 
                   </li>
                 </ul>
-                <?php if() ?>
                  <li class="nav-item form-inline dropdown">
                   <img height="40" width="40" src="images/papas.jpg" alt="" class="circle">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"" href="#">Osmar Barraza Flores</a> 
+                 <?php if($_SESSION['id']){ ?> 
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"" href="#"><?php 
+                    foreach($jsonUserById as $chuy){
+                      echo $chuy['nombre']." ".$chuy['apellidopaterno']." ".$chuy['apellidomaterno'];
+                  } 
+                    ?></a> 
                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                           <a class="dropdown-item" href="#">Mi perfil</a>
                           <a class="dropdown-item" href="#">Configuración de mi cuenta</a>
                           <div class="dropdown-divider"></div>
                           <a class="dropdown-item" href="#">Cerrar sesión</a>
                         </div>
-                  
                 </li>
+                <?php }else{?>
                 <form class="form-inline my-2 my-lg-0">
                   <button type="button" class="btn btn-light">Iniciar sesión</button>
                 </form>
+                <?php }?>
               </div>
             </nav>
 <br>
@@ -102,7 +121,7 @@ $url = "http://192.168.0.16/sonroll/usuarioWS.php/"
                 <input type="submit" name="sent" value="Registrarse">
             </form>
         </div>
-
+      
             <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>

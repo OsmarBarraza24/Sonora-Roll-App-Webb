@@ -1,3 +1,18 @@
+<?php
+session_start();
+$user['id'] = "";
+if(isset($_POST['sent'])){
+  
+  $loginUser = "http://192.168.0.16/sonroll/usuarioWS.php/login/".$_POST['contrasena']."/".$_POST['email']."";
+  $dataLoginUser = file_get_contents($loginUser);
+  $jsonLoginUser = json_decode($dataLoginUser, true);
+  foreach($jsonLoginUser as $user){
+    $_SESSION['id'] = $user['id'];
+    header("Location: index.php");
+    }
+}
+?>
+
 <html>
     <head>
         <meta charset="utf-8">
@@ -23,7 +38,7 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                   <li class="nav-item active">
-                    <a class="nav-link" href="index.html">Inicio <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="index.php">Inicio <span class="sr-only">(current)</span></a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="menu.html">Menú</a>
@@ -38,6 +53,7 @@
                    <a href=""><i class="fas fa-shopping-cart"></i></a> 
                   </li>
                 </ul>
+                <?php if($user['id']){ ?>
                 <li class="nav-item form-inline dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"" href="#">Osmar Barraza Flores</a> 
                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -45,12 +61,13 @@
                           <a class="dropdown-item" href="#">Configuración de mi cuenta</a>
                           <div class="dropdown-divider"></div>
                           <a class="dropdown-item" href="#">Cerrar sesión</a>
-                        </div>
-                  
+                        </div>                  
                 </li>
-                <!-- <form class="form-inline my-2 my-lg-0">
+                <?php }else{ ?>
+                <form class="form-inline my-2 my-lg-0">
                   <button type="button" class="btn btn-light">Iniciar sesión</button>
-                </form> -->
+                </form>
+                <?php } ?>
               </div>
             </nav>
 
@@ -58,14 +75,14 @@
             <h2>Inicia sesión</h2>
             <form method="post">
                 <div class="inputBox">
-                    <input type="text" name="" required="">
-                    <label>Usuario</label>
+                    <input type="text" name="email" required="">
+                    <label>Correo</label>
                 </div>
                 <div class="inputBox">
-                    <input type="password" name="" required="">
+                    <input type="password" name="contrasena" required="">
                     <label>Contraseña</label>
                 </div>
-                <input type="submit" name="" value="Entrar">
+                <input type="submit" name="sent" value="Entrar">
             </form>
             <a href="registro.php">¿No tienes cuenta? Registrate aquí</a>
         </div>

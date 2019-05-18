@@ -104,13 +104,18 @@ footer{
     border: 1px solid white;
 }
 
-.card{
+.cards{
 height: 350px;
 width: 300px;
 padding: 10px;
 margin: 10px;
+border: 1px grey solid;
 }
 
 .btn{
     font-family: 'Marmelad', sans-serif!important;
+}
+
+.car{
+    margin:2rem;
 }
