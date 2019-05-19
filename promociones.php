@@ -1,3 +1,21 @@
+<?php 
+session_start();
+
+if(isset($_SESSION['id'])){
+  $findUserById = "http://192.168.0.16/sonroll/usuarioWS.php/search/".$_SESSION['id'];
+  $findUserDataById = file_get_contents($findUserById);
+  $jsonFindById = json_decode($findUserDataById,true);
+  
+  foreach($jsonFindById as $value){
+    $value['id'];
+    $nombreCompleto = $value['nombre']." ".$value['apellidopaterno']." ".$value['apellidomaterno']."";
+  }
+
+}else{
+  $value['id'] = "";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,24 +43,25 @@
                   <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                       <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Inicio <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="index.php">Inicio <span class="sr-only">(current)</span></a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="menu.html">Menú</a>
+                        <a class="nav-link" href="menu.php">Menú</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="sucursales.html">Sucursales</a>
+                        <a class="nav-link" href="sucursales.php">Sucursales</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="promociones.html">Promociones</a>
+                        <a class="nav-link" href="promociones.php">Promociones</a>
                       </li>
                       <li class="nav-item form-inline my-2 my-lg-0">
-                       <a href="carrito.html"><i class="fas fa-shopping-cart"></i></a> 
+                       <a href="carrito.php"><i class="fas fa-shopping-cart"></i></a> 
                       </li>
                     </ul>
+                    <?php if($value['id']){ ?>
                     <li class="nav-item form-inline dropdown">
                       <img height="30" width="30" src="images/papas.jpg" alt="" class="circle">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"" href="#">Osmar Barraza Flores</a> 
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"" href="#"><?php echo $nombreCompleto ?></a> 
                           <div style="color:black" class="dropdown-menu" aria-labelledby="navbarDropdown">
                               <a class="dropdown-item" href="#">Mi perfil</a>
                               <a class="dropdown-item" href="#">Configuración de mi cuenta</a>
@@ -51,9 +70,11 @@
                             </div>
                       
                     </li>
-                    <!-- <form class="form-inline my-2 my-lg-0">
+                    <?php }else{?>
+                    <form class="form-inline my-2 my-lg-0">
                       <button type="button" class="btn btn-light">Iniciar sesión</button>
-                    </form> -->
+                    </form> 
+                    <?php }?>
                   </div>
                 </nav>
                 <br>

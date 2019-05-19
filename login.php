@@ -6,10 +6,11 @@ if(isset($_POST['sent'])){
   $loginUser = "http://192.168.0.16/sonroll/usuarioWS.php/login/".$_POST['contrasena']."/".$_POST['email']."";
   $dataLoginUser = file_get_contents($loginUser);
   $jsonLoginUser = json_decode($dataLoginUser, true);
+
   foreach($jsonLoginUser as $user){
     $_SESSION['id'] = $user['id'];
-    header("Location: index.php");
-    }
+  }
+header("Location:index.php");
 }
 ?>
 
@@ -41,21 +42,21 @@ if(isset($_POST['sent'])){
                     <a class="nav-link" href="index.php">Inicio <span class="sr-only">(current)</span></a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="menu.html">Menú</a>
+                    <a class="nav-link" href="menu.php">Menú</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="sucursales.html">Sucursales</a>
+                    <a class="nav-link" href="sucursales.php">Sucursales</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="promociones.html">Promociones</a>
+                    <a class="nav-link" href="promociones.php">Promociones</a>
                   </li>
                   <li class="nav-item form-inline my-2 my-lg-0">
-                   <a href=""><i class="fas fa-shopping-cart"></i></a> 
+                   <a href="carrito.php"><i class="fas fa-shopping-cart"></i></a> 
                   </li>
                 </ul>
                 <?php if($user['id']){ ?>
                 <li class="nav-item form-inline dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"" href="#">Osmar Barraza Flores</a> 
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"" href="#"><?php>$user['nombre']?></a> 
                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                           <a class="dropdown-item" href="#">Mi perfil</a>
                           <a class="dropdown-item" href="#">Configuración de mi cuenta</a>
@@ -65,7 +66,7 @@ if(isset($_POST['sent'])){
                 </li>
                 <?php }else{ ?>
                 <form class="form-inline my-2 my-lg-0">
-                  <button type="button" class="btn btn-light">Iniciar sesión</button>
+                <a class="btn btn-light" role="button" href="login.php" >Iniciar sesión</a>
                 </form>
                 <?php } ?>
               </div>

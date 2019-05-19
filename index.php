@@ -1,12 +1,26 @@
 <?php 
 session_start();
-$value['id'] = "";
-$findUserById = "http://192.168.0.16/sonroll/usuarioWS.php/search/".$_SESSION['id'];
-$findUserDataById = file_get_contents($findUserById);
-$jsonFindById = json_decode($findUserDataById,true);
-foreach($jsonFindById as $value){
-  $value['id'];
+
+if(isset($_SESSION['id'])){
+  $findUserById = "http://192.168.0.16/sonroll/usuarioWS.php/search/".$_SESSION['id'];
+  $findUserDataById = file_get_contents($findUserById);
+  $jsonFindById = json_decode($findUserDataById,true);
+  
+  foreach($jsonFindById as $value){
+    $value['id'];
+    $nombreCompleto = $value['nombre']." ".$value['apellidopaterno']." ".$value['apellidomaterno']."";
+
+  }
+}else{
+  $value['id'] = "";
 }
+
+
+if(isset($_GET['logout'])){
+  session_destroy();
+  header("Location: index.php");
+  }
+
 ?>
 
 
@@ -43,32 +57,34 @@ foreach($jsonFindById as $value){
                 <a class="nav-link" href="index.php">Inicio <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="menu.html">Menú</a>
+                <a class="nav-link" href="menu.php">Menú</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="sucursales.html">Sucursales</a>
+                <a class="nav-link" href="sucursales.php">Sucursales</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="promociones.html">Promociones</a>
+                <a class="nav-link" href="promociones.php">Promociones</a>
               </li>
               <li class="nav-item form-inline my-2 my-lg-0">
-               <a href=""><i class="fas fa-shopping-cart"></i></a> 
+               <a href="carrito.php"><i class="fas fa-shopping-cart"></i></a> 
               </li>
             </ul>
             <?php if($value['id']) {?>
             <li class="nav-item form-inline dropdown">
               <img height="40" width="40" src="images/papas.jpg" alt="" class="circle">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"" href="#">Osmar Barraza Flores</a> 
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"" href="#"><?php echo $nombreCompleto ?></a> 
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                       <a class="dropdown-item" href="#">Mi perfil</a>
                       <a class="dropdown-item" href="#">Configuración de mi cuenta</a>
                       <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Cerrar sesión</a>
+                      <form method="GET" class="form-inline my-2 my-lg-0">
+                    <input class="btn btn-danger" type="submit" name="logout" value="Cerrar sesión">
+                </form>
                     </div>
             </li>
             <?php }else{?>
              <form class="form-inline my-2 my-lg-0">
-              <button type="button" class="btn btn-light">Iniciar sesión</button>
+             <a class="btn btn-light" role="button" href="login.php">Iniciar sesión</a>
             </form>
             <?php }?>
           </div>
@@ -197,7 +213,7 @@ foreach($jsonFindById as $value){
                 <h3>Menú</h3>
                 <i class="fas fa-utensils fa-5x"></i>
                 <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque, cupiditate! Eos nesciunt perspiciatis rerum nisi est suscipit. Molestiae, laborum tempore?</p>
-                  <a class="btn btn-danger" role="button" href="menu.php" >Presiona aquí</a>
+                  <a class="btn btn-danger" role="button" href="login.php">Presiona aquí</a>
               </div>
             </div>
           </div>

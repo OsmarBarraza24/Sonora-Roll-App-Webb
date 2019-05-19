@@ -1,32 +1,30 @@
 <?php 
 session_start();
-
 if(isset($_POST["sent"])){
-$path = "http://192.168.0.16/sonroll/usuarioWS.php/".$_POST['nombre']."/".$_POST['paterno']."/".$_POST['materno']."/".$_POST['telefono']."/".$_POST['contrasena']."/".$_POST['email']."";
-$data = file_get_contents($path);
-$json = json_decode($data, true);
+  //Validar email 
+  $checkEmail = "http://192.168.0.16/sonroll/usuarioWS.php/"."";
+  $dataCheck = file_get_contents($checkEmail);
+  $jsonCheck = json_decode($dataCheck,true);
+  $registrado = false;
+  foreach($jsonCheck as $value){
+    if($_POST['email'] == $value['correo']){
+      $registrado = true;
+      $error = "El correo que ingresó, ya esta registrado";
+      break;
+    }
+  }
 
-//login
-
-$findUser = "http://192.168.0.16/sonroll/usuarioWS.php/login/".$_POST['contrasena']."/".$_POST['email']."";
-$findUserData= file_get_contents($findUser);
-$jsonUser = json_decode($findUserData,true);
-
-foreach($jsonUser as $user){
-  $_SESSION['id'] = $user['id'];
+  if (!$registrado) {
+      $path = "http://192.168.0.16/sonroll/usuarioWS.php/".$_POST['nombre']."/".$_POST['paterno']."/".$_POST['materno']."/".$_POST['telefono']."/".$_POST['contrasena']."/".$_POST['email']."";
+      $data = file_get_contents($path);
+      $json = json_decode($data, true);
+      foreach($json as $user){
+        $_SESSION['id'] = $user['id'];    
+      }
+      header("Location:index.php");
+  }
 }
 
-echo $_SESSION['id'];
-}
-
-//byId
-$findUserById = "http://192.168.0.16/sonroll/usuarioWS.php/search/".$user['id'];
-$findUserDataById = file_get_contents($findUserById);
-$jsonUserById = json_decode($findUserDataById,true);
-
-foreach($jsonUserById as $chuy){
-    echo $chuy['nombre']." ".$chuy['apellidopaterno']." ".$chuy['apellidomaterno'];
-} 
 ?>
 
 <html>
@@ -53,46 +51,35 @@ foreach($jsonUserById as $chuy){
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                   <li class="nav-item active">
-                    <a class="nav-link" href="index.html">Inicio <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="index.php">Inicio <span class="sr-only">(current)</span></a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="menu.html">Menú</a>
+                    <a class="nav-link" href="menu.php">Menú</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="sucursales.html">Sucursales</a>
+                    <a class="nav-link" href="sucursales.php">Sucursales</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="promociones.html">Promociones</a>
+                    <a class="nav-link" href="promociones.php">Promociones</a>
                   </li>
                   <li class="nav-item form-inline my-2 my-lg-0">
-                   <a href=""><i class="fas fa-shopping-cart"></i></a> 
+                   <a href="carrito.php"><i class="fas fa-shopping-cart"></i></a> 
                   </li>
-                </ul>
-                 <li class="nav-item form-inline dropdown">
-                  <img height="40" width="40" src="images/papas.jpg" alt="" class="circle">
-                 <?php if($_SESSION['id']){ ?> 
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"" href="#"><?php 
-                    foreach($jsonUserById as $chuy){
-                      echo $chuy['nombre']." ".$chuy['apellidopaterno']." ".$chuy['apellidomaterno'];
-                  } 
-                    ?></a> 
-                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <a class="dropdown-item" href="#">Mi perfil</a>
-                          <a class="dropdown-item" href="#">Configuración de mi cuenta</a>
-                          <div class="dropdown-divider"></div>
-                          <a class="dropdown-item" href="#">Cerrar sesión</a>
-                        </div>
+                    </ul>
+                  </a> 
                 </li>
-                <?php }else{?>
                 <form class="form-inline my-2 my-lg-0">
-                  <button type="button" class="btn btn-light">Iniciar sesión</button>
+                <a class="btn btn-light" role="button" href="login.php" >Iniciar sesión</a>
                 </form>
-                <?php }?>
               </div>
             </nav>
 <br>
         <div class="login">
             <h2>Registrate</h2>
+            <?php 
+            if(isset($error)){
+              echo '<p style="color:red;">'.$error.'</p>'; 
+            } ?>
             <form method="POST">
                 <div class="inputBox">
                     <input type="text" name="nombre" required="">
