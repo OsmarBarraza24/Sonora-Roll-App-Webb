@@ -105,7 +105,7 @@ if(isset($_POST["sent"])){
                     <input type="password" name="contrasena" required="">
                     <label>Contraseña</label>
                 </div>
-                <input type="submit" name="sent" value="Registrarse">
+                <input class="btn-light" type="submit" name="sent" value="Registrarse">
             </form>
         </div>
       

@@ -1,14 +1,16 @@
 <?php
 session_start();
 $user['id'] = "";
+$GLOBALS['ip']="192.168.0.16";
 if(isset($_POST['sent'])){
   
-  $loginUser = "http://192.168.0.16/sonroll/usuarioWS.php/login/".$_POST['contrasena']."/".$_POST['email']."";
+  $loginUser = "http://192.168.0.16/sonroll/usuarioWS.php/loginWithCart/".$_POST['contrasena']."/".$_POST['email']."";
   $dataLoginUser = file_get_contents($loginUser);
   $jsonLoginUser = json_decode($dataLoginUser, true);
 
   foreach($jsonLoginUser as $user){
     $_SESSION['id'] = $user['id'];
+    $_SESSION['idCarrito'] = $user['idCarrito'];
   }
 header("Location:index.php");
 }

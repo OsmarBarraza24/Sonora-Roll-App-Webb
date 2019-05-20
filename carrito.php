@@ -1,6 +1,8 @@
 <?php 
 session_start();
-
+$food['id'] = "";
+$total = 0;
+// id, nombre, descripcion, precio foto, comida
 if(isset($_SESSION['id'])){
 
     $findUserById = "http://192.168.0.16/sonroll/usuarioWS.php/search/".$_SESSION['id'];
@@ -11,17 +13,42 @@ if(isset($_SESSION['id'])){
       $value['id'];
       $nombreCompleto = $value['nombre']." ".$value['apellidopaterno']." ".$value['apellidomaterno']."";
     }
-}else{
+    }else{
     $value['id'] = "";
-}
+    }
 
+    $cart = "http://192.168.0.16/sonroll/comidaWS.php/searchByUserId/".$_SESSION['id']; 
+    $findCart = file_get_contents($cart);
+    $jsonCart = json_decode($findCart,true);
 
-
+    foreach($jsonCart as $food){
+        $food['nombre'];
+    }
 
 if(isset($_GET['logout'])){
     session_destroy();
     header("Location: index.php");
     }
+
+    if(isset($_GET['sent'])){
+        $path = "http://192.168.0.16/sonroll/carroWS.php/activar/".$_SESSION['idCarrito']."/"."1";
+        $data = file_get_contents($path);
+        $json = json_decode($data,true);
+        }
+
+        if(isset($_GET['delete'])){
+            $deleteFromCar = "http://192.168.0.16/sonroll/comidaWS.php/delete/".$_SESSION['idCarrito']."/".$_GET['idComida'];
+            $deleteCar = file_get_contents($deleteFromCar);
+            header("Location:carrito.php");   
+        }
+
+$findActive = "http://192.168.0.16/sonroll/comidaWS.php/searchByUserIdWithCart/".$_SESSION['id']."";
+$findActiveData = file_get_contents($findActive);
+$jsonFindActive = json_decode($findActiveData,true); 
+ foreach($jsonFindActive as $chuy){
+   $chuy['activo'];
+ }
+ $error ="Su orden esta activa";
 ?>
 
 <!DOCTYPE html>
@@ -95,7 +122,8 @@ if(isset($_GET['logout'])){
                 </div>
             </div>
             <br>
-
+             <!-- No -->
+             <?php if(!$food['id']){ ?>
             <div class="container">
                 <div class="row">
                     <div class="col-md-5">
@@ -108,72 +136,52 @@ if(isset($_GET['logout'])){
                     </div>
                 </div>
             </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+             <?php }else{?>
             <div class="row">
-                <div class="col-md-1">
-                    <p>Producto</p>
+                <div class="col-md-3">
+                    <p>Nombre</p>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="p">Descripción</div>
                 </div>
             </div>
             <hr>
+            <?php foreach($jsonCart as $food){ ?>
             <div class="row">
                 <div class="col-md-auto">
-                    <img height="100" width="100" src="images/dedosq.jpg" alt="">
+                    <img height="100" width="100" src="images/sushia.jpg" alt="">
                 </div>
                 <div class="col-md-auto">
-                    <h5>Dedos de queso</h5>
+                    <h5><?php echo $food['nombre']; ?></h5>
                     <br>
                     <div class="col-md-auto">
-                        <p>Sabrosanos dedos de queso, parecidos a los que hacia tu puta madre, pruebalos.</p>
+                        <p><?php echo $food['descripcion']; ?></p>
                     </div>
                 </div>
                 <div class="col-md-auto align-self-center">
-                    <h5>50$</h5>
+                    <h5><?php echo "$ ".$food['precio']; ?></h5>
                 </div>
-                <div class="col-md-auto align-self-center">
-                    <a class="btn btn-light" href="">Eliminar</a>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-md-auto">
-                    <img height="100" width="100" src="images/dedosq.jpg" alt="">
-                </div>
-                <div class="col-md-auto">
-                    <h5>Dedos de queso</h5>
-                    <br>
-                    <div class="col-md-auto">
-                        <p>Sabrosanos dedos de queso, parecidos a los que hacia tu puta madre, pruebalos.</p>
-                    </div>
-                </div>
-                <div class="col-md-auto align-self-center">
-                    <h5>50$</h5>
-                </div>
-                <div class="col-md-auto align-self-center">
-                    <a class="btn btn-light" href="">Eliminar</a>
+                <div class="col-md-5 align-self-center justify-content-end">
+                <form method="GET" action="">
+                <?php if(!$chuy['activo'] == 1){ ?>
+                    <input hidden name="idComida" type="text" value="<?php echo $food['id'] ?>">
+                    <input class="btn btn-light" type="submit" name="delete" value="Eliminar">
+                    <?php }else{ echo '<p style="color:red;"></p>'; } ?>
+                </form>
                 </div>
             </div>
             <hr>
-            <div class="row">
-                <div class="col-md-auto">
-                    <img height="100" width="100" src="images/dedosq.jpg" alt="">
-                </div>
-                <div class="col-md-auto">
-                    <h5>Dedos de queso</h5>
-                    <br>
-                    <div class="col-md-auto">
-                        <p>Sabrosanos dedos de queso, parecidos a los que hacia tu puta madre, pruebalos.</p>
-                    </div>
-                </div>
-                <div class="col-md-auto align-self-center">
-                    <h5>50$</h5>
-                </div>
-                <div class="col-md-auto align-self-center">
-                    <a class="btn btn-light" href="">Eliminar</a>
-                </div>
-            </div>
-            <hr>
+            <?php }?>
+            
             <div class="row justify-content-center">
                 <div class="col">
                     <h3>
@@ -184,17 +192,26 @@ if(isset($_GET['logout'])){
             <div class="row">
                 <div class="col">
                     <h3>
-                        300$
+                        <?php foreach($jsonCart as $comida){
+                            $total += $comida['precio'];
+                        }
+                        echo "$ " .$total.".00";
+                        ?> 
+                        
                     </h3>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    <a class="btn btn-danger" href="sucursales.html">Pagar</a>
+                <form method="get" action="">
+                <?php if(!$chuy['activo'] == 1){ ?>
+                <input class="btn btn-danger" type="submit" name="sent" value="Enviar orden">
+                <?php }else{ echo '<p style="color:red;">'.$error.'</p>'; } ?>
+                </form>
                 </div>
             </div>
         </div>
-        .
+        <?php }?>
         <footer>
             <div class="container">
                 <ul class="list-unstyled list-inline text-center">

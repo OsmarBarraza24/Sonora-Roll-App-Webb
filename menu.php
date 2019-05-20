@@ -16,7 +16,7 @@ if(isset($_SESSION['id'])){
 }
 
 
-
+$erro = "el chuy es joto";
 if(isset($_GET['logout'])){
   session_destroy();
   header("Location: index.php");
@@ -107,7 +107,7 @@ if(isset($_GET['logout'])){
                 <br>
                 <div class="row">
                     <div class="col center">
-                            <button type="button" class="btn btn-danger">Ordenar aquí</button>
+                    <a class="btn btn-danger" href="compra.php" role="button">Ordena aquí</a>
                     </div>
                 </div>
                 <br>

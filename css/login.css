@@ -74,3 +74,11 @@ body {
     cursor: pointer;
     border-radius: 5px;
 }
+
+.wuau{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-left:6rem;
+    margin-right:6rem;
+}

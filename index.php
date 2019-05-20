@@ -8,7 +8,7 @@ if(isset($_SESSION['id'])){
   
   foreach($jsonFindById as $value){
     $value['id'];
-    $nombreCompleto = $value['nombre']." ".$value['apellidopaterno']." ".$value['apellidomaterno']."";
+    $nombreCompleto = $value['nombre']." ".$value['apellidopaterno']." ".$value['apellidomaterno'].""; 
 
   }
 }else{
