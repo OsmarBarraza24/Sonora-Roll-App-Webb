@@ -100,9 +100,6 @@ $jsonFindActive = json_decode($findActiveData,true);
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"" href=" #"><?php echo $nombreCompleto ?></a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Mi perfil</a>
-                        <a class="dropdown-item" href="#">Configuración de mi cuenta</a>
-                        <div class="dropdown-divider"></div>
                         <form method="GET" class="form-inline my-2 my-lg-0">
                     <input class="btn btn-danger" type="submit" name="logout" value="Cerrar sesión">
                 </form>
@@ -132,19 +129,22 @@ $jsonFindActive = json_decode($findActiveData,true);
                 </div>
                 <div class="row">
                     <div class="col">
-                        <h4>¿Por qué mejor no vas a comprar algo ;)?</h4>
+                        <h4>¿Por qué mejor no vas a <a href="compra.php">comprar</a>  algo ;)?</h4>
                     </div>
                 </div>
             </div>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
              <?php }else{?>
             <div class="row">
                 <div class="col-md-3">
@@ -206,7 +206,7 @@ $jsonFindActive = json_decode($findActiveData,true);
                 <form method="get" action="">
                 <?php if(!$chuy['activo'] == 1){ ?>
                 <input class="btn btn-danger" type="submit" name="sent" value="Enviar orden">
-                <?php }else{ echo '<p style="color:red;">'.$error.'</p>'; } ?>
+                <?php }else{ echo '<p style="color:red;">'.$error.'</p>'; echo'<p style="color:red">Tiempo estimado : 20 minutos</p>';} ?>
                 </form>
                 </div>
             </div>

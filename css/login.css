@@ -79,6 +79,10 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin-left:6rem;
     margin-right:6rem;
+    margin-left:6rem;
+}
+
+.card{
+    margin:10px;
 }

@@ -50,7 +50,7 @@ if(isset($_GET['logout'])){
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-    
+          <?php if($value['id']) {?>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
@@ -68,21 +68,32 @@ if(isset($_GET['logout'])){
               <li class="nav-item form-inline my-2 my-lg-0">
                <a href="carrito.php"><i class="fas fa-shopping-cart"></i></a> 
               </li>
-            </ul>
-            <?php if($value['id']) {?>
+            </ul>        
             <li class="nav-item form-inline dropdown">
               <img height="40" width="40" src="images/papas.jpg" alt="" class="circle">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"" href="#"><?php echo $nombreCompleto ?></a> 
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item" href="#">Mi perfil</a>
-                      <a class="dropdown-item" href="#">Configuración de mi cuenta</a>
-                      <div class="dropdown-divider"></div>
                       <form method="GET" class="form-inline my-2 my-lg-0">
                     <input class="btn btn-danger" type="submit" name="logout" value="Cerrar sesión">
                 </form>
                     </div>
             </li>
             <?php }else{?>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="index.php">Inicio <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="menu.php">Menú</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="sucursales.php">Sucursales</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="promociones.php">Promociones</a>
+              </li>
+            </ul>        
              <form class="form-inline my-2 my-lg-0">
              <a class="btn btn-light" role="button" href="login.php">Iniciar sesión</a>
             </form>

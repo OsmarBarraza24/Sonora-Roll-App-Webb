@@ -28,7 +28,7 @@ $jsonComida = json_decode($comidaData,true);
 if(isset($_GET['sent'])){
   $addCart = "http://192.168.0.16/sonroll/comidaWS.php/addComidaToCart/".$_SESSION['idCarrito']."/".$_GET['idComida'];
   $addCartData = file_get_contents($addCart);
-  $jsonAddCar = json_decode($addCartData);
+  $jsonAddCar = json_decode($addCartData,true);
 }
 
 //
@@ -41,6 +41,7 @@ $jsonFindActive = json_decode($findActiveData,true);
    
  }
  $error = "Ya tiene una orden activa"
+ 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -91,8 +92,6 @@ $jsonFindActive = json_decode($findActiveData,true);
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false"" href=" #"><?php echo $nombreCompleto ?></a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Mi perfil</a>
-            <a class="dropdown-item" href="#">Configuración de mi cuenta</a>
             <div class="dropdown-divider"></div>
             <form method="get" action="">
               <form method="GET" class="form-inline my-2 my-lg-0">
@@ -118,12 +117,16 @@ $jsonFindActive = json_decode($findActiveData,true);
       </div>
     </div>
     <hr>
+    <?php if(isset($_GET['sent'])){
+      echo '<h4 style="color:red;margin-left:4rem">Se ha agregado un alimento a su carrito </h4>';
+      }
+         
+         ?>
     <div class="wuau">
     <?php foreach($jsonComida as $food) {?>
     <?php $food['nombre'] ?>
-    
       <div class="card" style="width: 18rem;">
-        <img src="images/hamburguesa.jpg" class="card-img-top" alt="...">
+        <img src="images/sushia.jpg" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title"><?php echo $food['nombre'] ?></h5>
           <p class="card-text"><?php echo $food['descripcion'] ?></p>
